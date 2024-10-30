@@ -1,0 +1,315 @@
+@mixin flex($fd, $jc, $ai) {
+    display: flex;
+    flex-direction: $fd;
+    justify-content: $jc;
+    align-items: $ai;
+}
+
+$light-gray: #f3f4f6;
+$gray: #d1d5db;
+$dark-gray: #4b5563;
+$orange: #ea580c;
+$green: #4ade80;
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+html {
+    .btn {
+        outline: 0;
+        border: 0;
+        background: $light-gray;
+        padding: 0.5rem;
+        border-radius: 0.35rem;
+        cursor: pointer;
+
+        &:hover {
+            background: $orange;
+            border-color: $orange;
+            color: #fff;
+        }
+    }
+
+    .tool-tip-box {
+        display: none;
+        position: absolute;
+        top: calc(100% + 0.5rem);
+        left: 50%;
+        transform: translateX(-50%);
+        background: $light-gray;
+        padding: 0.4rem;
+        border-radius: 0.25rem;
+        border: 1px solid $gray;
+        z-index: 2;
+
+        .arrow {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translate(-50%, 50%) rotate(45deg);
+            background: $light-gray;
+            width: 0.75rem;
+            aspect-ratio: 1;
+            border: 1px solid $gray;
+            border-bottom: 0;
+            border-right: 0;
+        }
+
+        .text {
+            white-space: nowrap;
+            color: $dark-gray;
+        }
+    }
+
+    .container {
+        width: 100%;
+        height: 100%;
+        max-width: 1500px;
+        padding: 1rem;
+        margin: 0 auto;
+    }
+}
+
+header {
+    width: 100%;
+    min-height: 5rem;
+    border-bottom: 1px solid $gray;
+
+    .header-inner {
+        @include flex(row, flex-end, center);
+        flex-wrap: wrap;
+        max-width: 1500px;
+        height: 100%;
+        margin: 0 auto;
+        gap: 1rem;
+        padding: 1rem;
+
+        .ether-wei-converter {
+            @include flex(column, flex-start, stretch);
+            gap: 0.5rem;
+            margin-right: auto;
+
+            div {
+                @include flex(row, space-between, center);
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            input:nth-of-type(1) {
+                width: 9rem;
+            }
+
+            input {
+                padding: 0.5rem 0.6rem;
+                border: 1px solid $gray;
+                border-radius: 0.25rem;
+                outline: 0;
+
+                &:focus {
+                    border-color: $orange;
+                }
+            }
+
+            input[type="number"]::-webkit-outer-spin-button,
+            input[type="number"]::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+        }
+
+        .property-count-box,
+        .fee-percentage-box {
+            @include flex(row, center, center);
+            position: relative;
+            gap: 1rem;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            background: $light-gray;
+
+            >span {
+                color: $orange;
+                font-weight: 500;
+            }
+
+            &:hover {
+                .tool-tip-box {
+                    display: block;
+                }
+            }
+        }
+
+        .wallet-section {
+            @include flex(row, center, center);
+            position: relative;
+            gap: 1rem;
+
+            &:hover {
+                .tool-tip-box {
+                    display: block;
+                }
+            }
+        }
+    }
+}
+
+.home-page {
+    @include flex(column, flex-start, stretch);
+
+    section {
+        @include flex(row, flex-start, flex-start);
+        flex-wrap: wrap;
+        gap: 1rem;
+
+        .section-item {
+            @include flex(column, flex-start, stretch);
+            width: calc(33% - 0.66rem);
+            gap: 1rem;
+
+            form {
+                @include flex(column, flex-start, stretch);
+                gap: 1rem;
+                padding: 1rem;
+                border-radius: 0.25rem;
+                background: $light-gray;
+
+                input[type="checkbox"] {
+                    display: none;
+
+                    &:checked~.form-body {
+                        display: none;
+                    }
+
+                    &:checked~.form-header label i {
+                        transform: rotate(180deg);
+                    }
+                }
+
+                .form-header {
+                    @include flex(row, space-between, center);
+
+                    label {
+                        i {
+                            padding: 0.25rem;
+                            cursor: pointer;
+                            transition: 0.35s all;
+
+                            &:hover {
+                                color: $orange;
+                            }
+                        }
+                    }
+                }
+
+                .form-body {
+                    @include flex(column, flex-start, stretch);
+                    gap: 0.5rem;
+
+                    .form-body-item {
+                        @include flex(row, space-between, center);
+
+                        span {
+                            text-transform: capitalize;
+                        }
+
+                        input {
+                            padding: 0.5rem;
+                            outline: 0;
+                            border: 1px solid $gray;
+                            border-radius: 0.25rem;
+
+                            &:focus {
+                                border-color: $orange;
+                            }
+                        }
+
+                        input[type="number"]::-webkit-outer-spin-button,
+                        input[type="number"]::-webkit-inner-spin-button {
+                            -webkit-appearance: none;
+                            margin: 0;
+                        }
+                    }
+
+                    .result {
+                        @include flex(column, flex-start, stretch);
+                        gap: 0.25rem;
+                        word-break: break-all;
+
+                        div {
+                            @include flex(row, space-between, flex-start);
+                            gap: 0.5rem;
+
+                            span:nth-of-type(1) {
+                                white-space: nowrap;
+                            }
+
+                            span:nth-of-type(2) {
+                                word-break: break-all;
+                            }
+                        }
+                    }
+
+                    button {
+                        width: max-content;
+                        margin-left: auto;
+                        padding: 0.5rem;
+                        border: 0;
+                        border-radius: 0.25rem;
+                        background: $gray;
+                        cursor: pointer;
+
+                        &:hover {
+                            background: $orange;
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1000px) {
+    .home-page {
+        section {
+            .section-item {
+                width: calc(50% - 0.5rem);
+            }
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    .home-page {
+        section {
+            .section-item {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        .header-inner {
+            .ether-wei-converter {
+                div {
+                    @include flex(row, space-between, center);
+                    flex-wrap: wrap;
+                    gap: 1rem;
+                }
+
+                input {
+                    min-width: 100%;
+                }
+            }
+        }
+
+        .wallet-section{
+            word-break: break-all;
+        }
+    }
+}
